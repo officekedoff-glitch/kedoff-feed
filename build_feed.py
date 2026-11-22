@@ -23,7 +23,8 @@ import requests
 
 YML_URL = "https://kedoff.net/yml.xml"
 OUT = os.path.join(os.path.dirname(__file__), "docs", "openai_ua.csv")
-UA = "Mozilla/5.0 (compatible; KedoffFeedBot/1.0; +https://kedoff.net/ua/)"
+UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+      "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36")
 WORKERS = 6
 RETURN_POLICY = "https://kedoff.net/ua/warranty.html"
 
