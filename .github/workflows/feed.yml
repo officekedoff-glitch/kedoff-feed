@@ -1,0 +1,28 @@
+name: Build OpenAI feed (Kedoff UA)
+
+on:
+  schedule:
+    - cron: "17 2 * * *"   # щодня о 04:17 за Києвом (02:17 UTC)
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install requests
+      - run: python build_feed.py
+      - name: Commit feed
+        run: |
+          git config user.name "kedoff-feed-bot"
+          git config user.email "kedoff-feed-bot@users.noreply.github.com"
+          git add docs/openai_ua.csv
+          git diff --cached --quiet || git commit -m "feed: $(date -u +%F)"
+          git push
